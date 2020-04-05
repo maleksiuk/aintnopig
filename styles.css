@@ -1,0 +1,19 @@
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#container {
+  width: 600px; 
+  margin: 0 auto;
+}
+
+.choice-link {
+  color: white; 
+  text-align: center; 
+  margin: 15px; 
+  padding: 20px;
+  display: block;
+  text-decoration: none;
+  font-size: 18px;
+}

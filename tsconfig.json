@@ -1,8 +1,9 @@
 {
 "compilerOptions": {
-  "strict": true
+  "strict": true,
+  "target": "ES5"
 },
 "files": [
-  "core.ts",
+  "core.ts"
 ]
 }

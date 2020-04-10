@@ -27,9 +27,9 @@ interface GameState {
 }
 
 let config : Config = {
-  imageHost: "hello",
-  numberOfPigPictures: 3,
-  numberOfNotPigPictures: 1
+  imageHost: "",
+  numberOfPigPictures: 7,
+  numberOfNotPigPictures: 7
 };
 
 let scoreTracker : ScoreTracker = { 
@@ -89,12 +89,12 @@ function presentNewImage() {
   if (getPigPicture) {
     gameState.showingPig = true;
     let numberToGet = getRandomInt(config.numberOfPigPictures) + 1;
-    gameImage.src = `pig${numberToGet}.jpg`;
+    gameImage.src = `images/pig${numberToGet}.jpg`;
     gameState.currentImageNumber = numberToGet;
   } else {
     gameState.showingPig = false;
     let numberToGet = getRandomInt(config.numberOfNotPigPictures) + 1;
-    gameImage.src = `notapig${numberToGet}.jpg`;
+    gameImage.src = `images/notapig${numberToGet}.jpg`;
     gameState.currentImageNumber = numberToGet;
   }
 }
@@ -120,7 +120,5 @@ function onChoosingAintNoPig(event: Event) {
   event.preventDefault();
   onChoosing('notapig');
 }
-
-
 
 

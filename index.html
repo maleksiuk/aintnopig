@@ -1,14 +1,17 @@
 <html>
   <head>
      <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="polina_regular.css">
+     <link rel="stylesheet" href="polina_front1.css">
      <link rel="stylesheet" href="styles.css">
      <script src="core.js"></script> 
   </head>
-  <body>
+  <body class="polina_front">
     <div id="container">
-      <h2>Ain't No Pig: The Game</h2>
+      <div class="polina" style="color: pink; font-size: 48px;">Ain't No Pig: The Game</div>
 
-      <div>
+      <div class="polina_front" style="font-size: 25px;">
         Score: <span id="score"></span>
       </div>
 
@@ -16,15 +19,15 @@
         <img src="pig1.jpg" style="max-width: 100%; max-height: 100%;" id="game-image" />
       </div>
 
-      <div style="width: 100%;">
+      <div style="width: 100%;" class="polina_front">
         <div style="width: 50%; display: inline-block;">
-          <a id="pig-link" href="" class="choice-link" style="background-color: green;">
-            Pig!
+          <a id="pig-link" href="" class="choice-link" style="background-color: green; font-size: 35px;">
+            pig!
           </a>
         </div>
         <div style="width: 50%; display: inline-block; float: right;">
-          <a id="aint-no-pig-link" class="choice-link" href="" style="background-color: red;">
-            Ain't No Pig!
+          <a id="aint-no-pig-link" class="choice-link" href="" style="background-color: red; font-size: 35px;">
+            ain't no pig!
           </a>
         </div>
       </div>

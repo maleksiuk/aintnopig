@@ -1,6 +1,10 @@
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+.polina {
+  font-family: Polina, Arial, Helvetica, sans-serif;
+}
+
+.polina_front {
+  font-family: 'PolinaFront1', Arial, Helvetica, sans-serif;
 }
 
 #container {

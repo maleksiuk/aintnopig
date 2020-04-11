@@ -89,12 +89,12 @@ function presentNewImage() {
   if (getPigPicture) {
     gameState.showingPig = true;
     let numberToGet = getRandomInt(config.numberOfPigPictures) + 1;
-    gameImage.src = `images/pig${numberToGet}.jpg`;
+    gameImage.src = `game_images/pig${numberToGet}.jpg`;
     gameState.currentImageNumber = numberToGet;
   } else {
     gameState.showingPig = false;
     let numberToGet = getRandomInt(config.numberOfNotPigPictures) + 1;
-    gameImage.src = `images/notapig${numberToGet}.jpg`;
+    gameImage.src = `game_images/notapig${numberToGet}.jpg`;
     gameState.currentImageNumber = numberToGet;
   }
 }

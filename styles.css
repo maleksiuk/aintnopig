@@ -1,3 +1,7 @@
+body {
+  background-color: pink;
+  box-sizing: border-box;
+}
 
 .polina {
   font-family: Polina, Arial, Helvetica, sans-serif;
@@ -7,9 +11,35 @@
   font-family: 'PolinaFront1', Arial, Helvetica, sans-serif;
 }
 
+.main-header {
+  color: black;
+  font-size: 48px;
+}
+
 #container {
-  width: 600px; 
+  box-sizing: border-box;
+  background-color: white;
+  width: 960px; 
   margin: 0 auto;
+}
+
+.image-house-container {
+  margin: 0 auto;
+  height: 684px;
+  width: 940px;
+  /*padding: 25px;*/
+  background-image: url("images/frame6.jpg");
+  background-repeat: no-repeat;
+  background-origin: padding-box;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-house {
+  height: 375px;
+  text-align: center;
 }
 
 .choice-link {
@@ -19,5 +49,23 @@
   padding: 20px;
   display: block;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 35px;
+}
+
+@media (max-width: 768px) { 
+  #container {
+    width: 100%;
+  }
+
+  .image-house {
+    height: 200px;
+  }
+
+  .main-header {
+    font-size: 28px;
+  }
+
+  .choice-link {
+    font-size: 15px;
+  }
 }

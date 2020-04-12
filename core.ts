@@ -6,7 +6,6 @@
 
 */
 
-
 interface ScoreTracker {
   numberGotRight: number;
   total: number;
@@ -16,7 +15,6 @@ interface ScoreTracker {
 }
 
 interface Config {
-  imageHost: string;
   numberOfPigPictures: number;
   numberOfNotPigPictures: number;
 }
@@ -27,7 +25,6 @@ interface GameState {
 }
 
 let config : Config = {
-  imageHost: "",
   numberOfPigPictures: 7,
   numberOfNotPigPictures: 7
 };

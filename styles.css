@@ -83,6 +83,42 @@ body {
   flex: 1 1 auto;
 }
 
+.fadeinout {
+  animation: fadeinout 1.5s ease-out;
+}
+
+@keyframes fadeinout {
+  0%,100% { opacity: 0 }
+  50% { opacity: 1 }
+}
+
+.modal {
+  position: absolute;
+  opacity: 0;
+}
+
+.modal-text {
+  position: absolute; 
+  font-size: 25px;
+  background-color: white; 
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.success-modal-text {
+  color: green;
+}
+
+.failure-modal-text {
+  color: red;
+}
+
+.feedback-image {
+  width: 400px;
+}
+
 @media (max-width: 1024px) {
   body {
     margin: 0;
@@ -105,6 +141,10 @@ body {
 
   .main-header {
     font-size: 28px;
+  }
+
+  .feedback-image {
+    width: 300px;
   }
 }
 

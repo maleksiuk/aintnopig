@@ -62,10 +62,14 @@ function updateScoreView() {
 function setThingsUp() {
   const pigLink = document.getElementById("pig-link");
   const aintNoPigLink = document.getElementById("aint-no-pig-link");
+  const successModal = document.getElementById("success-modal");
+  const failureModal = document.getElementById("failure-modal");
 
-  if (pigLink && aintNoPigLink) {
+  if (pigLink && aintNoPigLink && successModal && failureModal) {
     pigLink.addEventListener('click', onChoosingPig);
     aintNoPigLink.addEventListener('click', onChoosingAintNoPig);
+    successModal.addEventListener('animationend', onSuccessModalFinishedAnimating);
+    failureModal.addEventListener('animationend', onFailureModalFinishedAnimating);
 
     updateScoreView();
     presentNewImage();
@@ -103,12 +107,26 @@ function onChoosing(choice: string) {
   if ((choice == 'pig' && gameState.showingPig) ||
       (choice == 'notapig' && !gameState.showingPig)) {
     scoreTracker.gotItRight();
+    showSuccessModal();
   } else {
     scoreTracker.gotItWrong();
+    showFailureModal();
   }
+}
 
-  updateScoreView();
-  presentNewImage();
+function showSuccessModal() {
+  // mtodo: I shouldn't have to keep finding this
+  const successModal = document.getElementById('success-modal');
+  if (successModal) {
+    successModal.classList.add("fadeinout");
+  }
+}
+
+function showFailureModal() {
+  const modal = document.getElementById('failure-modal');
+  if (modal) {
+    modal.classList.add("fadeinout");
+  }
 }
 
 function onChoosingPig(event: Event) {
@@ -120,5 +138,28 @@ function onChoosingAintNoPig(event: Event) {
   event.preventDefault();
   onChoosing('notapig');
 }
+
+function onSuccessModalFinishedAnimating(event: Event) {
+  const modal = document.getElementById('success-modal');
+  if (modal) {
+    modal.classList.remove("fadeinout");
+  }
+
+  updateScoreView();
+  presentNewImage();
+}
+
+function onFailureModalFinishedAnimating(event: Event) {
+  const modal = document.getElementById('failure-modal');
+  if (modal) {
+    modal.classList.remove("fadeinout");
+  }
+
+  // mtodo: remove duplication
+  updateScoreView();
+  presentNewImage();
+}
+
+
 
 

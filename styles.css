@@ -26,8 +26,16 @@ body {
   flex: 1 1 auto;
 }
 
+.main-header-mobile {
+  color: #9B7546;
+  font-size: 20px;
+  flex: 1 1 auto;
+  display: none;
+}
+
 .score_house {
   flex: 0 1 auto;
+  font-size: 25px;
 }
 
 #container {
@@ -114,6 +122,28 @@ body {
   .choice-link {
     font-size: 18px;
   }
+
+  .main-header {
+    display: none;
+  }
+
+  .main-header-mobile {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-header-mobile-primary {
+    flex: 1 1 auto; 
+  }
+
+  .main-header-mobile-secondary {
+    flex: 1 1 auto;
+    font-size: 12px;
+  }
+
+  .score_house {
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 375px) {
@@ -146,10 +176,6 @@ body {
   .button-house {
     width: 100%;
     flex: 1 1 auto;
-  }
-
-  .main-header {
-    font-size: 22px;
   }
 
   .choice-link {

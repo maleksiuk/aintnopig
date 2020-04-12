@@ -22,6 +22,8 @@ interface Config {
 interface GameState {
   showingPig: boolean;
   currentImageNumber: number;
+
+  isAlreadyShowing(pig: boolean, num: number): boolean;
 }
 
 let config : Config = {
@@ -41,7 +43,13 @@ let scoreTracker : ScoreTracker = {
   }
 };
 
-let gameState : GameState = { showingPig: false, currentImageNumber: 0 };
+let gameState : GameState = { 
+  showingPig: false, 
+  currentImageNumber: 0,
+  isAlreadyShowing: function(pig: boolean, num: number): boolean {
+    return (this.showingPig == pig && this.currentImageNumber == num);
+  }
+};
 
 function showError(message: string) {
   // mtodo
@@ -88,15 +96,25 @@ function presentNewImage() {
 
   let getPigPicture = getRandomInt(100) > 50;
   if (getPigPicture) {
+    let numberToGet = null;
+
+    do {
+      numberToGet = getRandomInt(config.numberOfPigPictures) + 1;
+    } while (gameState.isAlreadyShowing(true, numberToGet));
+
     gameState.showingPig = true;
-    let numberToGet = getRandomInt(config.numberOfPigPictures) + 1;
+    gameState.currentImageNumber = numberToGet;
     gameImage.src = `game_images/pig${numberToGet}.jpg`;
-    gameState.currentImageNumber = numberToGet;
   } else {
+    let numberToGet = null;
+
+    do {
+      numberToGet = getRandomInt(config.numberOfNotPigPictures) + 1;
+    } while (gameState.isAlreadyShowing(false, numberToGet));
+
     gameState.showingPig = false;
-    let numberToGet = getRandomInt(config.numberOfNotPigPictures) + 1;
-    gameImage.src = `game_images/notapig${numberToGet}.jpg`;
     gameState.currentImageNumber = numberToGet;
+    gameImage.src = `game_images/notapig${numberToGet}.jpg`;
   }
 }
 

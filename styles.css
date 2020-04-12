@@ -1,6 +1,8 @@
 body {
-  background-color: pink;
+  /*background-color: #FFF3E2;*/
+  background-color: #C08B87;
   box-sizing: border-box;
+  margin: 0;
 }
 
 .polina {
@@ -11,13 +13,17 @@ body {
   font-family: 'PolinaFront1', Arial, Helvetica, sans-serif;
 }
 
+.top {
+  padding: 10px;
+}
+
 .main-header {
-  color: black;
+  color: #9B7546;
   font-size: 48px;
 }
 
 #container {
-  background-color: white;
+  background-color: #EFDABF;
   width: 960px;
   margin: 0 auto;
 }
@@ -113,10 +119,6 @@ body {
   .image-house {
     height: 148px;
   }
-
-  .choice-link {
-    font-size: 17px;
-  }
 }
 
 @media (max-width: 325px) {
@@ -137,7 +139,6 @@ body {
   .button-house {
     width: 100%;
     flex: 1 1 auto;
-    /*display: inline-block;*/
   }
 
   .main-header {

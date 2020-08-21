@@ -2,6 +2,16 @@
 # yarn lockfile v1
 
 
+"@types/requirejs-domready@^2.0.28":
+  version "2.0.28"
+  resolved "https://registry.yarnpkg.com/@types/requirejs-domready/-/requirejs-domready-2.0.28.tgz#ff56ea4f74422df0afc21629efebff6862b84d75"
+  integrity sha1-/1bqT3RCLfCvwhYp7+v/aGK4TXU=
+
+"@types/requirejs@^2.1.32":
+  version "2.1.32"
+  resolved "https://registry.yarnpkg.com/@types/requirejs/-/requirejs-2.1.32.tgz#c936a1f4b08f0a8bc10a380d7b837ccf9137d4b9"
+  integrity sha512-TM8LeNLJkEKDcx2414tsU+aKX+Pcfx8siRgZJWsb16KT77TT2FxINO48dLLkx8a5fEuJYb+rcfgPcvq6vt96NQ==
+
 typescript@^3.8.3:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"

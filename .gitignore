@@ -1,6 +1,8 @@
 *.swp
 *.swo
 node_modules/*
-*.js
+core.js
+view.js
+score_tracker.js
 game_images/*
 fonts/*

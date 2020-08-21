@@ -6,13 +6,15 @@
 
 */
 
-interface ScoreTracker {
-  numberGotRight: number;
-  total: number;
+import { updateScoreView, showError, setGameImage, showSuccessModal, showFailureModal, onPigLinkClick, onAintNoPigLinkClick, onSuccessModalFinishedAnimating, removeSuccessModal, removeFailureModal, onFailureModalFinishedAnimating } from "view";
+import { ScoreTracker } from "score_tracker";
 
-  gotItRight(): void;
-  gotItWrong(): void;
-}
+require(['domReady'], function(domReady: any) {
+  domReady(function() {
+    setThingsUp();
+  });
+});
+
 
 interface Config {
   numberOfPigPictures: number;
@@ -51,36 +53,14 @@ let gameState : GameState = {
   }
 };
 
-function showError(message: string) {
-  // mtodo
-}
-
-function updateScoreView() {
-  const scoreElement = document.getElementById("score");
-  if (scoreElement) {
-    scoreElement.innerText = scoreTracker.numberGotRight + "/" + scoreTracker.total;
-  } else {
-    showError("Could not update the score.");
-  }
-}
-
 function setThingsUp() {
-  const pigLink = document.getElementById("pig-link");
-  const aintNoPigLink = document.getElementById("aint-no-pig-link");
-  const successModal = document.getElementById("success-modal");
-  const failureModal = document.getElementById("failure-modal");
+  onPigLinkClick(handleChoosingPig);
+  onAintNoPigLinkClick(handleChoosingAintNoPig);
+  onSuccessModalFinishedAnimating(handleSuccessModalFinishedAnimating);
+  onFailureModalFinishedAnimating(handleFailureModalFinishedAnimating);
 
-  if (pigLink && aintNoPigLink && successModal && failureModal) {
-    pigLink.addEventListener('click', onChoosingPig);
-    aintNoPigLink.addEventListener('click', onChoosingAintNoPig);
-    successModal.addEventListener('animationend', onSuccessModalFinishedAnimating);
-    failureModal.addEventListener('animationend', onFailureModalFinishedAnimating);
-
-    updateScoreView();
-    presentNewImage();
-  } else {
-    showError("Something went wrong when setting up the page. Please refresh.");
-  }
+  updateScoreView(scoreTracker);
+  presentNewImage();
 }
 
 function getRandomInt(max: number): number {
@@ -88,33 +68,27 @@ function getRandomInt(max: number): number {
 }
 
 function presentNewImage() {
-  let gameImage = document.getElementById("game-image") as HTMLImageElement;
-  if (!gameImage) {
-    showError("Could not find the game image element.");
-    return;
-  }
-
   let getPigPicture = getRandomInt(100) > 50;
   if (getPigPicture) {
     let numberToGet = null;
 
     do {
       numberToGet = getRandomInt(config.numberOfPigPictures) + 1;
-    } while (gameState.isAlreadyShowing(true, numberToGet));
+    } while (config.numberOfPigPictures != 1 && gameState.isAlreadyShowing(true, numberToGet));
 
     gameState.showingPig = true;
     gameState.currentImageNumber = numberToGet;
-    gameImage.src = `game_images/pig${numberToGet}.jpg`;
+    setGameImage(`game_images/pig${numberToGet}.jpg`);
   } else {
     let numberToGet = null;
 
     do {
       numberToGet = getRandomInt(config.numberOfNotPigPictures) + 1;
-    } while (gameState.isAlreadyShowing(false, numberToGet));
+    } while (config.numberOfNotPigPictures != 1 && gameState.isAlreadyShowing(false, numberToGet));
 
     gameState.showingPig = false;
     gameState.currentImageNumber = numberToGet;
-    gameImage.src = `game_images/notapig${numberToGet}.jpg`;
+    setGameImage(`game_images/notapig${numberToGet}.jpg`);
   }
 }
 
@@ -129,49 +103,28 @@ function onChoosing(choice: string) {
   }
 }
 
-function showSuccessModal() {
-  // mtodo: I shouldn't have to keep finding this
-  const successModal = document.getElementById('success-modal');
-  if (successModal) {
-    successModal.classList.add("fadeinout");
-  }
-}
-
-function showFailureModal() {
-  const modal = document.getElementById('failure-modal');
-  if (modal) {
-    modal.classList.add("fadeinout");
-  }
-}
-
-function onChoosingPig(event: Event) {
+function handleChoosingPig(event: Event) {
   event.preventDefault();
   onChoosing('pig');
 }
 
-function onChoosingAintNoPig(event: Event) {
+function handleChoosingAintNoPig(event: Event) {
   event.preventDefault();
   onChoosing('notapig');
 }
 
-function onSuccessModalFinishedAnimating(event: Event) {
-  const modal = document.getElementById('success-modal');
-  if (modal) {
-    modal.classList.remove("fadeinout");
-  }
+function handleSuccessModalFinishedAnimating(event: Event) {
+  removeSuccessModal();
 
-  updateScoreView();
+  updateScoreView(scoreTracker);
   presentNewImage();
 }
 
-function onFailureModalFinishedAnimating(event: Event) {
-  const modal = document.getElementById('failure-modal');
-  if (modal) {
-    modal.classList.remove("fadeinout");
-  }
+function handleFailureModalFinishedAnimating(event: Event) {
+  removeFailureModal();
 
   // mtodo: remove duplication
-  updateScoreView();
+  updateScoreView(scoreTracker);
   presentNewImage();
 }
 

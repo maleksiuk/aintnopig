@@ -1,6 +1,7 @@
 {
 "compilerOptions": {
   "strict": true,
+  "module": "amd",
   "target": "ES5"
 },
 "files": [

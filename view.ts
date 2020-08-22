@@ -1,92 +1,84 @@
 import { ScoreTracker } from "score_tracker";
 
-export function updateScoreView(scoreTracker: ScoreTracker) {
-  const scoreElement = document.getElementById("score");
-  if (scoreElement) {
-    scoreElement.innerText = scoreTracker.numberGotRight + "/" + scoreTracker.total;
-  } else {
-    showError("Could not update the score.");
+export class View {
+  private scoreElement: HTMLElement;
+  private successModal: HTMLElement;
+  private failureModal: HTMLElement;
+  private pigLink: HTMLElement;
+  private aintNoPigLink: HTMLElement;
+
+  static build() {
+    let scoreElement = document.getElementById("score");
+    let successModal = document.getElementById("success-modal");
+    let failureModal = document.getElementById("failure-modal");
+    let pigLink = document.getElementById("pig-link");
+    let aintNoPigLink = document.getElementById("aint-no-pig-link");
+
+    if (scoreElement && successModal && failureModal && pigLink && aintNoPigLink) {
+      return new View(scoreElement, successModal, failureModal, pigLink, aintNoPigLink);
+    } else {
+      // mtodo: catch and show error
+      throw "Could not find element needed for building the view.";
+    }
   }
-}
 
-export function setGameImage(src: string) {
-  let gameImage = document.getElementById("game-image") as HTMLImageElement;
-  if (!gameImage) {
-    showError("Could not find the game image element.");
-    return;
+  constructor(scoreElement: HTMLElement, successModal: HTMLElement, failureModal: HTMLElement, pigLink: HTMLElement, aintNoPigLink: HTMLElement) {
+    this.scoreElement = scoreElement;
+    this.successModal = successModal;
+    this.failureModal = failureModal;
+    this.pigLink = pigLink;
+    this.aintNoPigLink = aintNoPigLink;
   }
-  gameImage.src = src;
-}
 
-export function showError(message: string) {
-  // mtodo
-}
-
-export function showSuccessModal() {
-  // mtodo: I shouldn't have to keep finding this
-  const successModal = document.getElementById('success-modal');
-  if (successModal) {
-    successModal.classList.add("fadeinout");
+  updateScore(scoreTracker: ScoreTracker) {
+    this.scoreElement.innerText = scoreTracker.numberGotRight + "/" + scoreTracker.total;
   }
-}
 
-export function showFailureModal() {
-  const modal = document.getElementById('failure-modal');
-  if (modal) {
-    modal.classList.add("fadeinout");
+  setGameImage(src: string) {
+    let gameImage = document.getElementById("game-image") as HTMLImageElement;
+    if (!gameImage) {
+      this.showError("Could not find the game image element.");
+      return;
+    }
+    gameImage.src = src;
   }
-}
 
-export function onPigLinkClick(callback: (e: Event) => any) {
-  const pigLink = document.getElementById("pig-link");
-  if (pigLink) {
-    pigLink.addEventListener('click', callback);
-  } else {
-    showError("Something went wrong when setting up the page. Please refresh.");
+  showError(message: string) {
+    // mtodo
   }
-}
 
-export function onAintNoPigLinkClick(callback: (e: Event) => any) {
-  const aintNoPigLink = document.getElementById("aint-no-pig-link");
-  if (aintNoPigLink) {
-    aintNoPigLink.addEventListener('click', callback);
-  } else {
-    showError("Something went wrong when setting up the page. Please refresh.");
+  showSuccessModal() {
+    this.successModal.classList.add("fadeinout");
   }
-}
 
-export function onSuccessModalFinishedAnimating(callback: (this: HTMLElement, ev: AnimationEvent) => any) {
-  const successModal = document.getElementById("success-modal");
-  if (successModal) {
-    successModal.addEventListener('animationend', callback);
-  } else {
-    showError("Something went wrong when setting up the page. Please refresh.");
+  showFailureModal() {
+    this.failureModal.classList.add("fadeinout");
   }
-}
 
-export function onFailureModalFinishedAnimating(callback: (this: HTMLElement, ev: AnimationEvent) => any) {
-  const modal = document.getElementById("failure-modal");
-  if (modal) {
-    modal.addEventListener('animationend', callback);
-  } else {
-    showError("Something went wrong when setting up the page. Please refresh.");
+  onPigLinkClick(callback: (e: Event) => any) {
+    this.pigLink.addEventListener('click', callback);
   }
-}
 
-export function removeSuccessModal() {
-  const modal = document.getElementById('success-modal');
-  if (modal) {
-    modal.classList.remove("fadeinout");
+  onAintNoPigLinkClick(callback: (e: Event) => any) {
+    this.aintNoPigLink.addEventListener('click', callback);
   }
-}
 
-export function removeFailureModal() {
-  const modal = document.getElementById('failure-modal');
-  if (modal) {
-    modal.classList.remove("fadeinout");
+  onSuccessModalFinishedAnimating(callback: (this: HTMLElement, ev: AnimationEvent) => any) {
+    this.successModal.addEventListener('animationend', callback);
   }
+
+  onFailureModalFinishedAnimating(callback: (this: HTMLElement, ev: AnimationEvent) => any) {
+    this.failureModal.addEventListener('animationend', callback);
+  }
+
+  removeSuccessModal() {
+    this.successModal.classList.remove("fadeinout");
+  }
+
+  removeFailureModal() {
+    this.failureModal.classList.remove("fadeinout");
+  }
+
 }
-
-
 
 

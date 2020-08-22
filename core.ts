@@ -6,7 +6,7 @@
 
 */
 
-import { updateScoreView, showError, setGameImage, showSuccessModal, showFailureModal, onPigLinkClick, onAintNoPigLinkClick, onSuccessModalFinishedAnimating, removeSuccessModal, removeFailureModal, onFailureModalFinishedAnimating } from "view";
+import { View } from "view";
 import { ScoreTracker } from "score_tracker";
 
 require(['domReady'], function(domReady: any) {
@@ -15,6 +15,7 @@ require(['domReady'], function(domReady: any) {
   });
 });
 
+var view : View;
 
 interface Config {
   numberOfPigPictures: number;
@@ -54,12 +55,14 @@ let gameState : GameState = {
 };
 
 function setThingsUp() {
-  onPigLinkClick(handleChoosingPig);
-  onAintNoPigLinkClick(handleChoosingAintNoPig);
-  onSuccessModalFinishedAnimating(handleSuccessModalFinishedAnimating);
-  onFailureModalFinishedAnimating(handleFailureModalFinishedAnimating);
+  view = View.build();
 
-  updateScoreView(scoreTracker);
+  view.onPigLinkClick(handleChoosingPig);
+  view.onAintNoPigLinkClick(handleChoosingAintNoPig);
+  view.onSuccessModalFinishedAnimating(handleSuccessModalFinishedAnimating);
+  view.onFailureModalFinishedAnimating(handleFailureModalFinishedAnimating);
+
+  view.updateScore(scoreTracker);
   presentNewImage();
 }
 
@@ -78,7 +81,7 @@ function presentNewImage() {
 
     gameState.showingPig = true;
     gameState.currentImageNumber = numberToGet;
-    setGameImage(`game_images/pig${numberToGet}.jpg`);
+    view.setGameImage(`game_images/pig${numberToGet}.jpg`);
   } else {
     let numberToGet = null;
 
@@ -88,7 +91,7 @@ function presentNewImage() {
 
     gameState.showingPig = false;
     gameState.currentImageNumber = numberToGet;
-    setGameImage(`game_images/notapig${numberToGet}.jpg`);
+    view.setGameImage(`game_images/notapig${numberToGet}.jpg`);
   }
 }
 
@@ -96,10 +99,10 @@ function onChoosing(choice: string) {
   if ((choice == 'pig' && gameState.showingPig) ||
       (choice == 'notapig' && !gameState.showingPig)) {
     scoreTracker.gotItRight();
-    showSuccessModal();
+    view.showSuccessModal();
   } else {
     scoreTracker.gotItWrong();
-    showFailureModal();
+    view.showFailureModal();
   }
 }
 
@@ -114,17 +117,17 @@ function handleChoosingAintNoPig(event: Event) {
 }
 
 function handleSuccessModalFinishedAnimating(event: Event) {
-  removeSuccessModal();
+  view.removeSuccessModal();
 
-  updateScoreView(scoreTracker);
+  view.updateScore(scoreTracker);
   presentNewImage();
 }
 
 function handleFailureModalFinishedAnimating(event: Event) {
-  removeFailureModal();
+  view.removeFailureModal();
 
   // mtodo: remove duplication
-  updateScoreView(scoreTracker);
+  view.updateScore(scoreTracker);
   presentNewImage();
 }
 
